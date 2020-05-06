@@ -1,2 +1,3 @@
 # Mini-Game
-A small RPG with a Player and a villain.
+A small RPG with a Player and a villain. Also Coffee and Boost.
+
