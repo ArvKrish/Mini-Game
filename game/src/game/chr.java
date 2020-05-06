@@ -1,12 +1,12 @@
 package game;
 
-public abstract class Character {
+public class chr {
 
 	private String name;
 	private int health;
 	private int power;
 	
-	public Character(String name,int health,int power) {
+	public chr(String name,int health,int power) {
 		this.name=name;
 		this.health=health;
 		this.power=power;
@@ -24,8 +24,6 @@ public abstract class Character {
 		return this.name;
 	}
 	
-	abstract void strikeUpdate();
-	abstract void getSummary();
 	
 	protected void boostHealth(int energy) {
 		this.health+=energy;
