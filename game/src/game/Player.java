@@ -3,19 +3,19 @@ package game;
 public class Player extends Character{
 	private boolean deathChecker;
 	private boolean healthChecker;
-	Player(String name){
-		super(name,100,25);
+	Player(String name, int power){
+		super(name,100,power);
 	}
 	
 
 
 	public void strike(Villain v) {
-		healthChecker=(this.getHealth()-(this.getPower()))>0?true:false;
+		healthChecker=(this.getHealth()-(this.getHealth()*(this.getPower()/200)))>0?true:false;
 		if(healthChecker) {
 			
-			this.decreaseHealth(this.getPower());
+			this.decreaseHealth(this);
 			
-			deathChecker=v.decreaseHealth(this.getPower());
+			deathChecker=this.decreaseHealth(v);
 		
 			if(deathChecker) {
 				System.out.println("\nK.O.");
@@ -36,12 +36,12 @@ public class Player extends Character{
 	}
 	public void powerUp() {
 		System.out.println("\nDrinking Boost\nRestoring health");
-		this.boostHealth(10);
+		this.boostHealth(.10);
 	}
 	
 	public void powerUp(int energy) {
 		System.out.println("\nDrinking Boost\nRestoring health");
-		this.boostHealth(energy);
+		this.boostHealth(.25);
 	}
 	
 	void getSummary() {
