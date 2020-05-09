@@ -3,8 +3,8 @@ package game;
 public abstract class Character {
 
 	private String name;
-	private int health;
-	private int power;
+	private double health;
+	private double power;
 	
 	public Character(String name,int health,int power) {
 		this.name=name;
@@ -12,11 +12,11 @@ public abstract class Character {
 		this.power=power;
 	}
 	
-	protected int getHealth() {
+	protected double getHealth() {
 		return this.health;
 	}
 	
-	protected int getPower() {
+	protected double getPower() {
 		return this.power;
 	}
 	
@@ -27,21 +27,27 @@ public abstract class Character {
 	abstract void strikeUpdate();
 	abstract void getSummary();
 	
-	protected void boostHealth(int energy) {
-		this.health+=energy;
+	protected void boostHealth(double energy) {
+		this.health+=this.health*energy;
 		if(this.health>100) {
 			this.health=100;
 		}
 	}
 	
-	protected boolean decreaseHealth(int power) {
-		this.health=this.health+this.power-(power*2);
-		if(this.health<=0) {
-			this.health=0;
-			System.out.println("\n"+this.getName()+"'s Health reduced : "+this.getHealth());
+	protected boolean decreaseHealth(Character c) {
+		if(this==c) {
+			c.health-=c.getHealth()*(this.getPower()/200);
+		}else {
+
+			c.health-=c.getHealth()*(this.getPower()/100);		
+		}
+		
+		if(c.health<=0) {
+			c.health=0;
+			System.out.println("\n"+c.getName()+"'s Health reduced : "+String.format("%.0f", c.getHealth()));
 			return true;
 		}
-		System.out.println("\n"+this.getName()+"'s Health reduced : "+this.getHealth());
+		System.out.println("\n"+c.getName()+"'s Health reduced : "+String.format("%.0f", c.getHealth()));
 		return false;
 	}
 	
@@ -49,7 +55,7 @@ public abstract class Character {
 	public String toString() {
 	
 		return "\nPlayer's Name: "+getName()+"\n"
-				+ "         Health: "+getHealth()+"\n"
+				+ "         Health: "+String.format("%.0f", getHealth())+"\n"
 				+"         Power: "+getPower();
 	}
 	
